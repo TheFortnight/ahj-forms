@@ -1,24 +1,24 @@
 {
-  "name": "js-advanced-diploma",
+  "name": "ahj-forms",
   "version": "1.0.0",
-  "description": "Вы неплохо овладели не только продвинутыми возможностями JS, но и инфраструктурными инструментами. Вам поручили первый проект: разработать небольшую пошаговую игру.",
+  "description": "ahj-html-forms",
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/main.js",
     "dev": "webpack serve --mode none",
     "build": "webpack  --mode production",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheFortnight/ajs-diploma.git"
+    "url": "git+https://github.com/TheFortnight/ahj-forms"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TheFortnight/ajs-diploma.git/issues"
+    "url": "https://github.com/TheFortnight/ahj-forms/issues"
   },
-  "homepage": "https://github.com/TheFortnight/ajs-diploma.git#readme",
+  "homepage": "https://github.com/TheFortnight/ahj-forms.git#readme",
   "devDependencies": {
     "@babel/cli": "^7.21.5",
     "@babel/core": "^7.21.8",
@@ -39,6 +39,8 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
-    "core-js": "^3.30.2"
+    "core-js": "^3.30.2",
+    "puppeteer": "^21.1.1",
+    "save-dev": "^0.0.1-security"
   }
 }
