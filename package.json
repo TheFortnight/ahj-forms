@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/main.js",
-    "dev": "webpack serve --mode none",
-    "build": "webpack  --mode production",
+    "dev": "webpack serve --mode development",
+    "build": "webpack  --mode development",
     "test": "jest --detectOpenHandles"
   },
   "repository": {
