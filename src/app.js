@@ -16,7 +16,7 @@ subscribeForm.addEventListener('submit', (e) => {
         console.log('xhr.responseText: ' + xhr.responseText);
     };
 
-    xhr.open('GET', 'http://localhost:8181');
+    xhr.open('POST', '');
 
     xhr.send();
 });
