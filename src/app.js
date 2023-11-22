@@ -9,10 +9,9 @@ const unsubscribeBtn = subscribeWidget.querySelector('.unsubscribe-btn');
 
 subscribeForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const body = Array.from(subscribeForm.elements)
-        .filter(({ name }) => name)
-        .map(({ name, value}) => `${name}=${encodeURIComponent(value)}`)
-        .join('&');
+
+    const body = new FormData(subscribeForm);
+    
     const xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
@@ -22,10 +21,12 @@ subscribeForm.addEventListener('submit', (e) => {
 
     xhr.open('POST', 'http://localhost:8181');
 
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+   // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     xhr.send(body);
 });
+
+
 
 unsubscribeBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -40,9 +41,9 @@ unsubscribeBtn.addEventListener('click', (e) => {
         console.log('xhr.responseText: ' + xhr.responseText);
     };
 
-    xhr.open('DELETE', 'http://localhost:8181');
+    xhr.open('DELETE', 'http://localhost:8181/?' + body);
 
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    xhr.send(body);
+    xhr.send();
 });
