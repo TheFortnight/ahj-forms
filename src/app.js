@@ -21,8 +21,6 @@ subscribeForm.addEventListener('submit', (e) => {
 
     xhr.open('POST', 'http://localhost:8181');
 
-   // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
     xhr.send(body);
 });
 
@@ -47,3 +45,23 @@ unsubscribeBtn.addEventListener('click', (e) => {
 
     xhr.send();
 });
+
+const uploadForm = subscribeWidget.querySelector('.upload-form');
+
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const body = new FormData(uploadForm);
+    
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== 4) return;
+        console.log('xhr.responseText: ' + xhr.responseText);
+    };
+
+    xhr.open('POST', 'http://localhost:8181/upload');
+
+    xhr.send(body);
+
+})
