@@ -35,7 +35,7 @@ unsubscribeBtn.addEventListener('click', (e) => {
     const xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
-        if(xhr.readyState !== 4) return;
+        if(xhr.readyState !== 4) return;        
         console.log('xhr.responseText: ' + xhr.responseText);
     };
 
@@ -45,12 +45,13 @@ unsubscribeBtn.addEventListener('click', (e) => {
 
     xhr.send();
 });
-
-const uploadForm = subscribeWidget.querySelector('.upload-form');
+//debugger;
+const uploadForm = document.querySelector('.upload-form');
+const previewImage = document.querySelector('.preview-image');
 
 uploadForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
+    console.log('uplodaing file!')
     const body = new FormData(uploadForm);
     
     const xhr = new XMLHttpRequest();
@@ -58,10 +59,10 @@ uploadForm.addEventListener('submit', (e) => {
     xhr.onreadystatechange = function() {
         if(xhr.readyState !== 4) return;
         console.log('xhr.responseText: ' + xhr.responseText);
+        previewImage.src = 'http://localhost:8181' + xhr.responseText;
     };
 
     xhr.open('POST', 'http://localhost:8181/upload');
-
     xhr.send(body);
 
-})
+});
