@@ -1,7 +1,76 @@
-//const Popup = require('./popup')
-//const popup = new Popup('.button');
+class SubscriptionApi {
+    constructor(apiUrl) {
+        this.apiUrl = apiUrl
+    }
 
-const subscribeWidget = document.querySelector('.subscribe');
+    async add(user) {
+        const request = fetch(this.apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        const result = await request;
+
+        if (!result.ok) {
+            console.error('ERROR!');
+
+            return;
+        }
+
+        const json = await result.json();
+
+        const status = json.status;
+
+        console.log('STATUS: ', status);
+    }
+
+    async remove(user) {
+        const query = '?phone=' + user.phone;
+        const request = fetch(this.apiUrl + query, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        const result = await request;
+
+        if (!result.ok) {
+            console.error('ERROR!');
+
+            return;
+        }
+
+        const json = await result.json();
+
+        const status = json.status;
+
+        console.log('STATUS: ', status);
+    }
+}
+
+window.api = new SubscriptionApi('http://localhost:8181/');
+
+(async () => {
+    const request = fetch('http://localhost:8181/index');
+
+    const result = await request;
+
+    const text = await  result.text();
+
+    console.log(text);
+})();
+
+
+
+
+
+
+/*const subscribeWidget = document.querySelector('.subscribe');
 const subscribeForm = subscribeWidget.querySelector('.subscribe-form');
 const nameInput = subscribeWidget.querySelector('.name');
 const phoneInput = subscribeWidget.querySelector('.phone');
@@ -65,4 +134,4 @@ uploadForm.addEventListener('submit', (e) => {
     xhr.open('POST', 'http://localhost:8181/upload');
     xhr.send(body);
 
-});
+});*/
