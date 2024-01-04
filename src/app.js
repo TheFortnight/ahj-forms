@@ -4,7 +4,7 @@ class SubscriptionApi {
     }
 
     async add(user) {
-        const request = fetch(this.apiUrl, {
+        const request = fetch(this.apiUrl + 'subscriptions/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +28,8 @@ class SubscriptionApi {
     }
 
     async remove(user) {
-        const query = '?phone=' + user.phone;
+        const query = 'subscriptions/' + encodeURIComponent(user.phone);
+
         const request = fetch(this.apiUrl + query, {
             method: 'DELETE',
             headers: {
@@ -51,11 +52,37 @@ class SubscriptionApi {
 
         console.log('STATUS: ', status);
     }
-}
+};
+
+const eventSource = new EventSource('http://localhost:8181/sse');
+
+eventSource.addEventListener('open', (e)=> {
+    console.log(e);
+
+    console.log('sse open');
+});
+
+eventSource.addEventListener('error', (e)=> {
+    console.log(e);
+
+    console.log('sse error');
+});
+
+const subscriptions = document.querySelector('.subscriptions');
+
+eventSource.addEventListener('message', (e)=> {
+    console.log(e);
+    const { name, phone } = JSON.parse(e.data);
+
+    subscriptions.appendChild(document.createTextNode(`${name} ${phone} \n`));
+
+    console.log('sse message');
+
+});
 
 window.api = new SubscriptionApi('http://localhost:8181/');
 
-(async () => {
+/*(async () => {
     const request = fetch('http://localhost:8181/index');
 
     const result = await request;
@@ -63,7 +90,7 @@ window.api = new SubscriptionApi('http://localhost:8181/');
     const text = await  result.text();
 
     console.log(text);
-})();
+})();*/
 
 
 

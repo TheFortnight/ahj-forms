@@ -10,3 +10,9 @@
     padding-top: 300px;
     padding-left: 300px;
   }
+
+  .subscriptions {
+    white-space: pre;
+    background-color: pink;
+    font-size: 25px;
+  }
