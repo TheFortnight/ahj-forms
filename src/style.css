@@ -11,7 +11,7 @@
     padding-left: 300px;
   }
 
-  .subscriptions {
+  .subscriptions, .chat {
     white-space: pre;
     background-color: pink;
     font-size: 25px;

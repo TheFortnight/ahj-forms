@@ -54,7 +54,9 @@ class SubscriptionApi {
     }
 };
 
-const eventSource = new EventSource('http://localhost:8181/sse');
+// Server sent events
+
+/*const eventSource = new EventSource('http://localhost:8181/sse');
 
 eventSource.addEventListener('open', (e)=> {
     console.log(e);
@@ -78,7 +80,62 @@ eventSource.addEventListener('message', (e)=> {
 
     console.log('sse message');
 
+});*/
+
+const ws = new WebSocket('ws://localhost:8181/ws');
+
+const chat = document.querySelector('.chat');
+
+const chatMessage = document.querySelector('.chat-message');
+
+const chatSend = document.querySelector('.chat-send');
+
+chatSend.addEventListener('click', (event) => {
+
+    event.preventDefault();
+    
+    const message = chatMessage.value;
+
+    if (!message) return;
+
+    ws.send(message);
+
+    chatMessage.value = '';
+    
 });
+
+ws.addEventListener('message', (e)=> {
+    console.log('received msg from server: ', e);
+
+    const data = JSON.parse(e.data);
+    const { chat: messages } = data;
+
+    messages.forEach(message => {
+        chat.appendChild(document.createTextNode(message + '\n'));
+    });
+
+    console.log('ws message');
+});
+
+ws.addEventListener('close', (e)=> {
+    console.log(e);
+
+    console.log('ws close');
+});
+
+ws.addEventListener('open', (e)=> {
+    console.log(e);
+
+    console.log('ws open');
+});
+
+ws.addEventListener('error', (e)=> {
+    console.log(e);
+
+    console.log('ws error');
+});
+
+
 
 window.api = new SubscriptionApi('http://localhost:8181/');
 
